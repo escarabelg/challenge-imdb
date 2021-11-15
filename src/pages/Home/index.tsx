@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react"
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 // api
 import { getConfiguration, getMoviesUpcoming } from '../../api'
@@ -12,10 +11,17 @@ import { Card, CardList, HomeWrapper } from './styles'
 
 /**
  * Home page to show a movies list with card style
+ * 
+ * unfortunately when import react-router-dom the tests broken.
+ * Even creating the context of the browserRouter in jest...
+ * Then, in this moment instead use '<Link>' or 'useNavigate' to 
+ * navigate, it was necessary use javascript 'window.location.replace'
+ * 
+ * an in-depth research will be needed to discover the things.
  */
 export function Home() {
-  const [movies, setMovies] = useState<IMovie[]>([] as IMovie[])
-  const [cfg, setCfg] = useState<IConfigImage>({} as IConfigImage)
+  const [movies, setMovies] = useState<IMovie[]>()
+  const [cfg, setCfg] = useState<IConfigImage>()  
 
   /**
    * Runs once only (when mount)
@@ -45,16 +51,19 @@ export function Home() {
   return (
     <HomeWrapper>
       { // When movies is empty, only for test
-        movies.length === 0 && <p>Loading ...</p> 
+        movies?.length === 0 && <p>Loading ...</p> 
       }
       
       <CardList>
         { movies && movies.map( movie => (
-          <Link key={movie.id} to={`/${movie.id}`}>
-            <Card bgURL={mountPosterURL(movie)}>
-              <span className="rating">{movie?.vote_average}</span>
-            </Card>
-          </Link>
+          <Card 
+            data-testid="movie_card"
+            key={movie.id} 
+            bgURL={mountPosterURL(movie)} 
+            onClick={() => window.location.replace('/'+movie.id)}
+          >
+            <span className="rating">{movie?.vote_average}</span>
+          </Card>
         ))}      
       </CardList>
     </HomeWrapper>

@@ -13,20 +13,20 @@ import configurationFake from '../../utils/fakedata/imdb_configuration.json'
  * Use this to read layout from the DOM and synchronously re-render. 
  * Updates scheduled inside useLayoutEffect will be flushed synchronously, 
  * before the browser has a chance to paint.
- * 
- * then: this hack is a jest way to work with hooks in render inital stage
  */
-beforeAll(() => jest.spyOn(React, 'useEffect').mockImplementation(React.useLayoutEffect))
+beforeAll(() => {
+  jest.spyOn(React, 'useEffect').mockImplementation(React.useLayoutEffect)
+})
 
 describe('Home Component', () => {
-  test(`should be able to set and show a movie title in screen`, async () => {
+  test(`should be able to set and show a movie in screen`, async () => {
     React.useState = jest.fn()
     .mockReturnValueOnce([moviesFake, [] ])
     .mockReturnValueOnce([configurationFake, {} ])
 
     render(<Home />)
 
-    const title = screen.getByAltText(moviesFake[0].title);
+    const title = screen.getByTestId("movie_card");
     expect(title).toBeInTheDocument();
   })
 
@@ -37,7 +37,7 @@ describe('Home Component', () => {
 
     render(<Home />)
 
-    const sumMoviesDisplayed = screen.getAllByRole("img");
+    const sumMoviesDisplayed = screen.getAllByTestId("movie_card");
     expect(sumMoviesDisplayed).toHaveLength(1);
 
   })
