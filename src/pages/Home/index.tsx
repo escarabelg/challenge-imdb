@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react"
-import { IConfigImage, IMovie } from '../../interfaces'
+import { Link } from 'react-router-dom'
+
+// api
 import { getConfiguration, getMoviesUpcoming } from '../../api'
+
+// interfaces
+import { IConfigImage, IMovie } from '../../interfaces'
 
 /**
  * Home page to show a movies list with card style
@@ -10,7 +15,7 @@ export function Home() {
   const [cfg, setCfg] = useState<IConfigImage>({} as IConfigImage)
 
   /**
-   * Runs only when mount to fetch
+   * Runs once only (when mount)
    * movies and configuration(images info) 
    */
    useEffect(() => {
@@ -42,11 +47,9 @@ export function Home() {
       
       { movies && movies.map( movie => {
         return (
-          <img 
-            key={movie.id} 
-            src={mountPosterURL(movie)} 
-            alt={movie.title} 
-          />
+          <Link key={movie.id} to={`/${movie.id}`}>
+            <img key={movie.id} src={mountPosterURL(movie)} alt={movie.title} />
+          </Link>
         )
       })}      
     </div>
