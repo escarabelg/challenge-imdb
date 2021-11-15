@@ -7,6 +7,19 @@ import { getMovieDetails, getConfiguration } from "../../api"
 // interfaces
 import { IMovieDetails, IConfigImage } from "../../interfaces"
 
+// styles
+import { Detail, MovieDetail, MovieDetailWrapper } from "./styles"
+
+// icons 
+import Icon from '@mdi/react'
+import { 
+  mdiAlarm, 
+  mdiTagMultipleOutline, 
+  mdiStarOutline, 
+  mdiAccountStarOutline, 
+  mdiCalendarOutline 
+} from '@mdi/js'
+
 /**
  * Component to show a movie details
  * 
@@ -39,27 +52,51 @@ export function Movie() {
   const mountBackdropURL = (): string => {
     return (
       cfg.base_url + "" +
-      cfg.backdrop_sizes?.[3] + "" +
+      cfg.backdrop_sizes?.[1] + "" +
       movie.backdrop_path
     )
   }
 
   return (
-    <div>
-      <div>
-        <h4>{movie.title}</h4>
-        <p>{movie.tagline}</p>
-      </div>
+    <MovieDetailWrapper>
+      <MovieDetail bgURL={mountBackdropURL()} />
 
-      <p>runtime: {movie.runtime} min</p>
-      <p>votes average: {movie.vote_average}</p>
-      <p>votes count: {movie.vote_count}</p>
-      <p>release date: {movie.release_date}</p>
+      <Detail>
+        <div className="spacer" />
 
-      <hr/>
+        <div className="header">
+          <h4>{movie.title}</h4>
+          <p>{movie.tagline}</p>
+        </div>
 
-      <p>{movie.overview}</p>
-      <img src={mountBackdropURL()} alt={movie.title}/>
-    </div>
+        <span className="info">
+
+          <span className="default" data-tooltip="Runtime">
+            <Icon path={mdiAlarm} size={0.8} />
+            {movie.runtime} min
+          </span>
+
+          <span className="default" data-tooltip="Votes average">
+            <Icon path={mdiStarOutline} size={0.85} />
+            {movie.vote_average}
+          </span>
+
+          <span className="default" data-tooltip="Votes count">
+            <Icon path={mdiAccountStarOutline} size={0.85} />
+            {movie.vote_count}
+          </span>
+
+          <span className="default" data-tooltip="Release date">
+            <Icon path={mdiCalendarOutline} size={0.85} />
+            {movie.release_date}
+          </span>
+        </span>
+
+        <div className="body">
+          <p>{movie.overview}</p>
+        </div>
+        
+      </Detail>
+    </MovieDetailWrapper>
   )
 }
