@@ -12,7 +12,7 @@ export const CardList = styled.div`
   a {
     padding: 7px;
   }
-`;
+`
 
 export const Card = styled.div<Props>`
   background-color: black;
@@ -24,6 +24,7 @@ export const Card = styled.div<Props>`
   position: relative;
   z-index: 1;
   transition: all .5s ease-in-out;
+  margin: 7.5px;
 
   .rating {
     position: absolute;
