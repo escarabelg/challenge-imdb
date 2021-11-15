@@ -47,7 +47,7 @@ describe('Movie Component', () => {
 
     render(<Movie />)
 
-    const title = screen.getByText("runtime: "+movieFake.runtime+" min");
+    const title = screen.getByText(movieFake.runtime+" min");
     expect(title).toBeInTheDocument();
   })
 
@@ -58,7 +58,7 @@ describe('Movie Component', () => {
 
     render(<Movie />)
 
-    const title = screen.getByText("votes average: "+movieFake.vote_average);
+    const title = screen.getByText(movieFake.vote_average);
     expect(title).toBeInTheDocument();
   })
 
@@ -69,7 +69,7 @@ describe('Movie Component', () => {
 
     render(<Movie />)
 
-    const title = screen.getByText("votes count: "+movieFake.vote_count);
+    const title = screen.getByText(movieFake.vote_count);
     expect(title).toBeInTheDocument();
   })
 
@@ -80,7 +80,7 @@ describe('Movie Component', () => {
 
     render(<Movie />)
 
-    const title = screen.getByText("release date: "+movieFake.release_date);
+    const title = screen.getByText(movieFake.release_date);
     expect(title).toBeInTheDocument();
   })
 })
