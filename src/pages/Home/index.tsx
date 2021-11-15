@@ -7,6 +7,9 @@ import { getConfiguration, getMoviesUpcoming } from '../../api'
 // interfaces
 import { IConfigImage, IMovie } from '../../interfaces'
 
+// styles
+import { Card, CardList, HomeWrapper } from './styles'
+
 /**
  * Home page to show a movies list with card style
  */
@@ -40,18 +43,20 @@ export function Home() {
   }
    
   return (
-    <div>
+    <HomeWrapper>
       { // When movies is empty, only for test
         movies.length === 0 && <p>Loading ...</p> 
       }
       
-      { movies && movies.map( movie => {
-        return (
+      <CardList>
+        { movies && movies.map( movie => (
           <Link key={movie.id} to={`/${movie.id}`}>
-            <img key={movie.id} src={mountPosterURL(movie)} alt={movie.title} />
+            <Card bgURL={mountPosterURL(movie)}>
+              <span className="rating">{movie?.vote_average}</span>
+            </Card>
           </Link>
-        )
-      })}      
-    </div>
+        ))}      
+      </CardList>
+    </HomeWrapper>
   )
 }
