@@ -48,8 +48,8 @@ export function GenresSelect(props: Props) {
   return (
     <Select value={props.genreSelected} onChange={(e) => props.setGenreSelected(Number(e.target.value))}>
       <option key={-1} value={-1}>All Genres</option>
-      {
-        props.movies && genres && 
+      
+      {props.movies && genres && 
         uniquesGenres().map(e => {
           return <option key={e} value={e}>{genreByID(e).name}</option>
         })
