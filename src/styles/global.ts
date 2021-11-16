@@ -18,10 +18,26 @@ export default createGlobalStyle`
   body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.71429;
-    min-height: 100vh;
     color: rgba(94,86,105,.87);
-    transition: background-color 0.25s linear;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 35s ease infinite;
+    height: 100%;
+    
   }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
 
   /* Typography
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
