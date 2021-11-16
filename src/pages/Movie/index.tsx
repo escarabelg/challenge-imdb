@@ -24,7 +24,8 @@ import {
   mdiAccountStarOutline, 
   mdiCalendarOutline,
   mdiArrowLeftCircle,
-  mdiHomeCircle
+  mdiHomeCircle,
+  mdiTagMultipleOutline
 } from '@mdi/js'
 
 /**
@@ -112,6 +113,11 @@ export function Movie() {
               <span className="default" data-tooltip="Release date">
                 <Icon path={mdiCalendarOutline} size={0.85} />
                 {movie.release_date}
+              </span>
+
+              <span className="default" data-tooltip="Genres">
+                <Icon path={mdiTagMultipleOutline} size={0.95} />
+                { movie.genres?.map(g => g.name).join(", ") || "" }
               </span>
             </span>
 
