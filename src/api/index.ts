@@ -1,7 +1,7 @@
 import axios from "axios"
 
 // interfaces
-import { IMovie, IMovieDetails, IConfigImage } from '../interfaces'
+import { IMovie, IMovieDetails, IConfigImage, IGenre } from '../interfaces'
 
 export const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -13,7 +13,8 @@ export const api = axios.create({
 export enum EndPoint {
   Upcoming = "/movie/upcoming",
   MovieDetails = "/movie",
-  Configuration = "/configuration"
+  Configuration = "/configuration",
+  Genres = "/genre/movie/list"
 }
 
 // movies upcoming
@@ -35,5 +36,13 @@ export const getConfiguration = async (): Promise<IConfigImage | null> => {
   return await api
     .get(EndPoint.Configuration)
     .then((response) => response?.data?.images || null)
+    .catch((err) => null)
+}
+
+// genres
+export const getGenres = async (): Promise<IGenre[] | null> => {
+  return await api
+    .get(EndPoint.Genres)
+    .then((response) => response?.data?.genres || null)
     .catch((err) => null)
 }
