@@ -131,3 +131,21 @@ export const MovieDetail = styled.div<Props>`
     transform-origin: 0 0;
   }
 `
+
+export const MenuBar = styled.div`
+  display: flex;
+  width: 53%;
+  justify-content: space-between;
+  color: white;
+  
+  svg:hover {
+    cursor:pointer
+  }
+`
+export const Loading = styled.div`
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 22px;
+  margin-top: 25%;
+`
