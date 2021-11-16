@@ -7,6 +7,7 @@ import { Home } from './index'
 // Fake data for testing
 import moviesFake from '../../utils/fakedata/imdb_movies.json'
 import configurationFake from '../../utils/fakedata/imdb_configuration.json'
+import genresFake from '../../utils/fakedata/imdb_genres.json'
 
 /** useLayoutEffect - https://reactjs.org/docs/hooks-reference.html
  * The signature is identical to useEffect, but it fires synchronously after all DOM mutations. 
@@ -23,6 +24,8 @@ describe('Home Component', () => {
     React.useState = jest.fn()
     .mockReturnValueOnce([moviesFake, [] ])
     .mockReturnValueOnce([configurationFake, {} ])
+    .mockReturnValueOnce([-1, -1 ])
+    .mockReturnValueOnce([genresFake, [] ])
 
     render(<Home />)
 
@@ -34,6 +37,8 @@ describe('Home Component', () => {
     React.useState = jest.fn()
     .mockReturnValueOnce([moviesFake, [] ])
     .mockReturnValueOnce([configurationFake, {} ])
+    .mockReturnValueOnce([-1, -1 ])
+    .mockReturnValueOnce([genresFake, [] ])
 
     render(<Home />)
 
@@ -46,6 +51,8 @@ describe('Home Component', () => {
     React.useState = jest.fn()
     .mockReturnValueOnce([[], [] ])
     .mockReturnValueOnce([{}, {} ])
+    .mockReturnValueOnce([-1, -1 ])
+    .mockReturnValueOnce([genresFake, [] ])
 
     render(<Home />)
 
