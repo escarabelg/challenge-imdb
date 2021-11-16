@@ -3,29 +3,33 @@ import { useState, useEffect } from 'react'
 // api
 import { getConfiguration, getMoviesUpcoming } from '../../api'
 
+// components
+import { GenresSelect } from '../../components/GenresSelect'
+
 // interfaces
 import { IConfigImage, IMovie } from '../../interfaces'
 
 // styles
-import { Card, CardList, HomeWrapper } from './styles'
+import { Card, CardList, HomeWrapper, MenuBar } from './styles'
 
 /**
  * Home page to show a movies list with card style
  * 
  * unfortunately when import react-router-dom the tests broken.
- * Even creating the context of the browserRouter in jest...
- * Then, in this moment instead use '<Link>' or 'useNavigate' to 
- * navigate, it was necessary use javascript 'window.location.replace'
+ * Even creating the context of the BrowserRouter in jest...
+ * Then, in this moment instead use '<Link>' or 'useNavigate' 
+ * it was necessary use pure javascript 'window.location.replace'
  * 
  * an in-depth research will be needed to discover the things.
  */
 export function Home() {
-  const [movies, setMovies] = useState<IMovie[]>()
+  const [movies, setMovies] = useState<IMovie[]>([] as IMovie[])
   const [cfg, setCfg] = useState<IConfigImage>()  
+  const [genreSelected, setGenreSelected] = useState<number>(-1)
 
   /**
-   * Runs once only (when mount)
-   * movies and configuration(images info) 
+   * Get main data on mount
+   * movies and configuration(images conf. info.)
    */
    useEffect(() => {
     (async () => {
@@ -48,14 +52,32 @@ export function Home() {
     return `${cfg?.base_url}${cfg?.poster_sizes?.[2]}${movie?.poster_path}`
   }
    
+  // until the movies are not obtained, 
+  // force this early return
+  if (movies?.length === 0) {
+    return (
+      <HomeWrapper>
+        <p>Loading ...</p>
+      </HomeWrapper>
+    )
+  }
+
+  //when movies are obtained, 
+  // we go
   return (
     <HomeWrapper>
-      { // When movies is empty, only for test
-        movies?.length === 0 && <p>Loading ...</p> 
-      }
+      <MenuBar>
+        <GenresSelect 
+          movies={movies} 
+          setGenreSelected={setGenreSelected} 
+          genreSelected={genreSelected} 
+        />
+      </MenuBar>
       
       <CardList>
-        { movies && movies.map( movie => (
+        { movies && movies
+          .filter(movie => (genreSelected !== -1) ? movie.genre_ids?.find(x => x === genreSelected) : true) // by genre
+          .map( movie => (
           <Card 
             data-testid="movie_card"
             key={movie.id} 

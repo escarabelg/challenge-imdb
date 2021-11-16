@@ -65,3 +65,47 @@ export const HomeWrapper = styled.div`
   max-width: 900px;
   padding: 1.5rem;
 `
+
+export const MenuBar = styled.div`
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;  
+  z-index:2;
+  border-radius: 10px;
+  box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+  padding: 5px 10px;
+  backdrop-filter: blur(5px);
+  background: #f7f8f9;
+
+  .genres {
+    padding-left: 3px;
+    display: flex;
+    align-items: center;
+  }
+
+  .adult {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    span:first-child {
+      margin-right: 5px;
+    }
+
+    .countAdult {
+      font-size: 13px;
+      padding-left: 7px;
+    }
+  }
+
+  @media (max-width: 415px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    svg {
+      display: none;
+    }
+  }`
