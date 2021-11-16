@@ -1,4 +1,3 @@
-# Challenge PorterGroup
 ![Gif](miscellaneou/../miscellaneous/finish.gif)
 
 # How reproduce ?
