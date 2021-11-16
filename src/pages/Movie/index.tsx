@@ -35,7 +35,6 @@ import {
 export function Movie() {
   const [ movie, setMovie ] = useState<IMovieDetails>({} as IMovieDetails)
   const [ cfg, setCfg ] = useState<IConfigImage>({} as IConfigImage)
-  const isLoading = useRef(true)
 
   const { id } = useParams()
 
@@ -45,11 +44,7 @@ export function Movie() {
         const movieDetails = await getMovieDetails(id)
         const configuration = await getConfiguration()
 
-        if (movieDetails) {
-          setMovie(movieDetails)
-          isLoading.current = false
-        }
-        
+        if (movieDetails) setMovie(movieDetails)
         if (configuration) setCfg(configuration)
       }
     })()
@@ -81,11 +76,11 @@ export function Movie() {
         </div>
       </MenuBar>
 
-      { isLoading.current === true && (
+      { typeof movie.id === undefined  && (
         <Loading>Loading ...</Loading>
       )}
 
-      { isLoading.current === false && (
+      { typeof movie.id === 'number' && (
         <>
           <MovieDetail bgURL={mountBackdropURL()} />
 
